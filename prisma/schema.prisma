@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://postgres:Tshirtstrip123@@db.hpotpzsrjsewrpkodyou.supabase.co:5432/postgres"
+}
+
+
+model Admin {
+userid String 
+password String @unique
+createdAt DateTime @default(now())
+updatedat DateTime @updatedAt
+  }
+
+model Post {
+  id Int @id @default(autoincrement()) 
+  Title String 
+  Content String
+  ThumbnailImage String
+  images Image[]
+
+}
+
+model Image {
+  id        Int    @id @default(autoincrement())
+  filename  String
+  filepath  String  @unique
+  postId    Int
+  post      Post   @relation(fields: [postId], references: [id])
+}
+  
