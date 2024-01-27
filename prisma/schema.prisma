@@ -1,20 +1,18 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://postgres:Tshirtstrip123@@db.hpotpzsrjsewrpkodyou.supabase.co:5432/postgres"
+  url      = "postgres://postgres.ayjjohwooddfnsquptpw:tshirtstrip123@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
 }
 
 
 model Admin {
-userid String 
-password String @unique
+userid String @unique
+password String 
 createdAt DateTime @default(now())
-updatedat DateTime @updatedAt
+updatedat DateTime @updatedAt @default(now())
   }
 
 model Post {
@@ -23,7 +21,6 @@ model Post {
   Content String
   ThumbnailImage String
   images Image[]
-
 }
 
 model Image {
@@ -33,4 +30,5 @@ model Image {
   postId    Int
   post      Post   @relation(fields: [postId], references: [id])
 }
-  
+
+
