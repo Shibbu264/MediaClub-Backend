@@ -16,17 +16,18 @@ updatedat DateTime @updatedAt @default(now())
   }
 
 model Post {
-  id Int @id @default(autoincrement()) 
+  id Int @id @default(autoincrement()) @unique
   Title String 
   Content String
   ThumbnailImage String
+  createdAt DateTime @default(now())
   images Image[]
 }
 
 model Image {
   id        Int    @id @default(autoincrement())
   filename  String
-  filepath  String  @unique
+  downloadUrl  String  
   postId    Int
   post      Post   @relation(fields: [postId], references: [id])
 }
