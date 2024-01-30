@@ -78,7 +78,25 @@ app.post("/uploadimage", upload.array("images"), async (req, res) => {
   }
 });
 
+app.post("/deleteimage",async (req,res)=>{
+  const downloadUrl=req.body.downloadUrl
+  try {await deleteImage(downloadUrl)
+    res.send({"message":"Succesfully Deleted Image !"})
+  }
+  catch (e){
+    res.status(400).send({"message":e})
+  }
+})
 
+app.post("/deletethumbnail",async (req,res)=>{
+  const downloadUrl=req.body.downloadUrl
+  try {await deleteImage(downloadUrl)
+  res.send({"message":"Succesfully Deleted Thumbnail !"})
+  }
+  catch (e){
+    res.status(400).send({"message":e})
+  }
+})
 
 
 
@@ -297,19 +315,34 @@ async function deleteImages(images) {
   }
 }
 
-async function deletethumbnail(thumbnailurl) {
-  
-    const filePath = await getDownloadURL(ref(storage,thumbnailurl));
-    const fileRef = ref(storage,filePath);
 
-    try {await deleteObject(fileRef);}
-    catch (error) {
+  async function deleteImage(downloadUrl) {  
+    try {
+      const filePath = await getDownloadURL(ref(storage,downloadUrl));
+      const fileRef = ref(storage,filePath);
+      await deleteObject(fileRef);
+      
+    
+    } catch (error) {
       console.error('Error deleting files:', error);
       throw new Error('Error deleting files '+error);
     }
-    
   }
-
+  
+  async function deletethumbnail(downloadUrl) {  
+    const filePath = await getDownloadURL(ref(storage, downloadUrl));
+    const fileRef = ref(storage,filePath);
+    try {
+     
+      await deleteObject(fileRef);
+      
+    
+    } catch (error) {
+      console.error('Error deleting files:', error);
+      throw new Error('Error deleting files '+error);
+    }
+  }
+  
 
 
 
