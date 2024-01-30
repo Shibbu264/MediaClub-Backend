@@ -1,6 +1,6 @@
 import express from 'express'
 import prisma from './prisma1.js'
-import bcrypt, { hash } from 'bcrypt'
+import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 import { storage, ref, deleteObject, uploadBytesResumable, getDownloadURL } from "./firebase-setup/firebase.js"
 import bodyParser from 'body-parser'
