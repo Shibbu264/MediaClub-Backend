@@ -22,6 +22,8 @@ model Post {
   ThumbnailImage String
   createdAt DateTime @default(now())
   images Image[]
+  upvotes Int @default(0)
+  downvotes Int @default(0)
 }
 
 model Image {
