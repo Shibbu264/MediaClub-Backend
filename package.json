@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon -r esm index.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,6 +14,7 @@
     "@prisma/client": "^5.8.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "esm": "^3.2.25",
     "express": "^4.18.2",
     "firebase": "^10.7.2",
     "jsonwebtoken": "^9.0.2",

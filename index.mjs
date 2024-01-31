@@ -254,6 +254,7 @@ app.post('/editpost',async (req,res)=>{
   const images=req.body.images
   const existingPost = await prisma.post.findUnique({
     where: { id: req.body.id },
+    include: { images: true },
   });
 
   if (!existingPost) {
@@ -265,10 +266,16 @@ app.post('/editpost',async (req,res)=>{
     ThumbnailImage: req.body.thumbnail || existingPost.ThumbnailImage,
   }
   if (images && images.length > 0) {
+    if (existingPost.images && existingPost.images.length > 0) {
+      const imageIds = existingPost.images.map((image) => image.id);
+      await prisma.image.deleteMany({
+        where: { id: { in: imageIds } },
+      });
+    }
     postData.images = {
       create: images.map((image) => ({
-        filename: image.name,
-        downloadUrl: image.downloadURL,
+        filename: image.filename,
+        downloadUrl: image.downloadUrl,
       })),
     };
   }
@@ -276,6 +283,7 @@ app.post('/editpost',async (req,res)=>{
   const updatedPost = await prisma.post.update({
     where: { id: req.body.id},
     data: postData,
+    include: { images: true },
   });
 
   res.send({ message: 'Post updated successfully', updatedPost });
