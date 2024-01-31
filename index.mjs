@@ -9,9 +9,6 @@ import giveCurrentDateTime from "./helpers/currentdatetime.js"
 import verifyToken from './middleware/authmiddleware.js'
 
 
-
-
-
 const app = express()
 const port = 3000
 app.use(bodyParser.json());
