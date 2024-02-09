@@ -7,12 +7,12 @@ import bodyParser from 'body-parser'
 import multer from 'multer';
 import giveCurrentDateTime from "./helpers/currentdatetime.js"
 import verifyToken from './middleware/authmiddleware.js'
-
+import cors from "cors"
 
 const app = express()
-const port = 3000
+const port = 3001
 app.use(bodyParser.json());
-
+app.use(cors())
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -388,7 +388,7 @@ catch (e){
 // 
 
 
-//Edit a Blog
+//Create Upvotes
 
 
 
