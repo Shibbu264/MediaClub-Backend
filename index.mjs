@@ -17,6 +17,7 @@ app.use(cors())
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.post('/uploadthumbnail', upload.single('thumbnailimage'), async (req, res) => {
+  console.log(req.file)
   try {
     const dateTime = giveCurrentDateTime();
     const storageRef = ref(storage, `Images-Media/${req.file.originalname} ${dateTime}`);
@@ -212,6 +213,8 @@ app.get("/viewposts", async (req, res) => {
         Content: true,
         ThumbnailImage: true,
         createdAt: true,
+        upvotes:true,
+        downvotes:true,
       },
     });
 
